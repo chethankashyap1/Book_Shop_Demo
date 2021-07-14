@@ -19,9 +19,17 @@ jobs:
       - run: ./gradlew test
       - store_test_results:
           path: build/test-results
+
+  checkstyle:
+    docker:
+      - image: gradle:alpine
+    steps:
+      - checkout
+      - apply plugin: 'checkstyle'
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
       - test
+      - checkstyle
